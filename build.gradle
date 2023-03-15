@@ -1,6 +1,7 @@
 plugins {
     id 'java-library'
     id 'io.qameta.allure' version '2.10.0'
+    id "io.freefair.lombok" version "6.0.0-m2"
 }
 
 repositories {
@@ -30,11 +31,14 @@ dependencies {
             "io.qameta.allure:allure-selenide:$allureVersion",
             "io.rest-assured:rest-assured:5.3.0",
             "io.qameta.allure:allure-rest-assured:$allureVersion",
+            "com.github.javafaker:javafaker:1.0.2",
 //            "io.appium:java-client:7.0.0",
             "io.appium:java-client:8.3.0",
             "org.junit.jupiter:junit-jupiter:5.9.2",
+            'org.aeonbits.owner:owner:1.0.4',
             "org.slf4j:slf4j-simple:$slf4jVersion"
     )
+    testImplementation 'org.projectlombok:lombok:1.18.22'
 }
 
 tasks.withType(Test) {
@@ -46,5 +50,16 @@ tasks.withType(Test) {
             events "started", "skipped", "failed", "standard_error", "standard_out"
             exceptionFormat "short"
         }
+    }
+}
+task android(type: Test) {
+    useJUnitPlatform {
+        includeTags 'Android'
+    }
+}
+
+task ios(type: Test) {
+    useJUnitPlatform {
+        includeTags 'iOS'
     }
 }
