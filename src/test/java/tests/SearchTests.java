@@ -12,6 +12,8 @@ import static com.codeborne.selenide.Selenide.$$;
 import static io.appium.java_client.AppiumBy.accessibilityId;
 import static io.appium.java_client.AppiumBy.id;
 import static io.qameta.allure.Allure.step;
+import static java.lang.String.format;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.openqa.selenium.By.xpath;
 
 
@@ -29,10 +31,9 @@ public class SearchTests extends TestBase {
                 $$(id("org.wikipedia.alpha:id/page_list_item_title"))
                         .shouldHave(sizeGreaterThan(0)));
     }
-
+    @DisplayName("Checking 'About' in settings")
     @Test
     @Tag("Android")
-    @DisplayName("Checking 'About' in settings")
     void searchAboutTest() {
         step("Open menu", () ->
                 $(id("org.wikipedia.alpha:id/menu_overflow_button")).click()
@@ -47,14 +48,28 @@ public class SearchTests extends TestBase {
         });
     }
 
-    @DisplayName("Checking search of java")
+    @DisplayName("Checking com.browserstack.Sample")
     @Test
     @Tag("iOS")
-    void successfulSearchIosTest() {
-        step("Type search", () -> {
-            $(xpath("/XCUIElementTypeApplication/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeSegmentedControl/XCUIElementTypeButton[2]")).click();
+    void iosTextTest() {
+
+        String text = "iPhoneTest";
+        step("Click Text Button", () -> {
+            $(id("Text Button")).click();
         });
-        step("Verify content found", () ->
-                $(xpath(("/XCUIElementTypeApplication/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTable"))).shouldBe(visible));
+
+        step("Check initial state Output text", () -> {
+            assertEquals("Waiting for text input.", $(id("Text Output")).getText());
+        });
+
+        step(format("Set value %s in the input field and press enter", text), () -> {
+            $(id("Text Input")).click();
+            $(id("Text Input")).sendKeys(text);
+            $(id("Text Input")).pressEnter();
+        });
+
+        step("Check Output text", () -> {
+            assertEquals(text, $(id("Text Output")).getText());
+        });
     }
 }

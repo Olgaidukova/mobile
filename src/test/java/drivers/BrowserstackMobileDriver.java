@@ -24,7 +24,7 @@ public class BrowserstackMobileDriver implements WebDriverProvider {
 
         // Set URL of the application under test
 //        mutableCapabilities.setCapability("app", "bs://c700ce60cf13ae8ed97705a55b8e022f13c5827c");
-        mutableCapabilities.setCapability("app", "bs://f7c874f21852ba57957a3fdc33f47514288c4ba4");
+        mutableCapabilities.setCapability("app", "bs://444bd0308813ae0dc236f8cd461c02d3afa7901d");
         /*            //caps.AddAdditionalCapability("id", "me.amitburst.HackerNewsiOS");
             caps.AddAdditionalCapability("app", "bs://444bd0308813ae0dc236f8cd461c02d3afa7901d"); */
         // Specify device and os_version for testing
