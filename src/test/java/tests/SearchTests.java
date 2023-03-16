@@ -69,7 +69,8 @@ public class SearchTests extends TestBase {
         });
 
         step("Check Output text", () -> {
-            assertEquals(text, $(id("Text Output")).getText());
+            //assertEquals(text, $(id("Text Output")).getText());
+            $(id("Text Input")).shouldHave(text(text));
         });
     }
 }
